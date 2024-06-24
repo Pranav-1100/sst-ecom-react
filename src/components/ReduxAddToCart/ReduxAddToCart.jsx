@@ -1,16 +1,19 @@
-import { useContext } from "react";
-import CartContext from "../../context/cartContext";
+import { useDispatch,useSelector } from "react-redux";
+function ReduxAddToCart({ product}) {
 
-function AddToCart({ product}) {
-    // inc
-    // dec
-    const {cart,increaseQuantity,decreaseQuantity} = useContext(CartContext); 
+    let dispatch=useDispatch();
     function increase() {
-        increaseQuantity(product);
+        // dispatch({type :,payload :})
+        dispatch({type:"ADD_TO_CART",payload : product});
     }
     function decrease() {
-        decreaseQuantity(product);
+        // dispatch({type :,payload :})
+        dispatch({type:"REMOVE_FROM_CART",payload : product});
     }
+
+    let cart = useSelector((state)=>{
+        return state.items;
+    })
     const quantity = cart[product.id] ? cart[product.id].quantity : 0;
     if (quantity === 0) {
         return (
@@ -31,7 +34,7 @@ function AddToCart({ product}) {
 
 }
 
-export default AddToCart;
+export default ReduxAddToCart;
 
 
 // array of object 
